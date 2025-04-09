@@ -1,0 +1,22 @@
+<mat-toolbar color="primary" class="header-toolbar">
+  <span class="header-logo">
+    <span class="toolbar-title" routerLink="/">Organza Hub</span>
+  </span>
+  <span class="header-spacer"></span>
+  <nav class="header-nav desktop-only">
+    <button mat-button routerLink="/">Home</button>
+    <button mat-button routerLink="/about">About</button>
+    <button mat-button routerLink="/contact">Contact</button>
+  </nav>
+  <span class="header-spacer"></span>
+
+  <button mat-icon-button class="mobile-only" [matMenuTriggerFor]="mobileMenu">
+    <mat-icon>menu</mat-icon>
+  </button>
+</mat-toolbar>
+
+<mat-menu #mobileMenu="matMenu">
+  <button mat-menu-item routerLink="/">Home</button>
+  <button mat-menu-item routerLink="/about">About</button>
+  <button mat-menu-item routerLink="/contact">Contact</button>
+</mat-menu>

@@ -1,0 +1,108 @@
+<p>start</p>
+<mat-stepper orientation="vertical" [linear]="false" #stepper>
+  <mat-step [stepControl]="firstFormGroup">
+    <form [formGroup]="firstFormGroup">
+    <div class="container">
+      <h2>Please fill in your information</h2>
+
+      <mat-card>
+        <h3>Set up Your Rate</h3>
+        <mat-form-field appearance="outline">
+          <mat-label>Rate per hour</mat-label>
+          <input matInput type="number" />
+        </mat-form-field>
+
+        <mat-form-field appearance="outline">
+          <mat-label>Currency</mat-label>
+          <mat-select formControlName="currency">
+            <mat-option *ngFor="let c of currencies" [value]="c.code">
+              {{ c.symbol }} - {{ c.name }} ({{ c.code }})
+            </mat-option>
+          </mat-select>
+        </mat-form-field>
+
+        <p>You selected: {{ budgetForm.value.currency }}</p>
+  <p>Rate: {{ selectedCurrencySymbol }}{{ budgetForm.value.ratePerHour }} per hour</p>
+      </mat-card>
+
+      <mat-card>
+        <h3>Set up Complexity Level</h3>
+        <mat-radio-group>
+          <mat-radio-button value="default">Set up all hours by default level</mat-radio-button><br>
+          <mat-radio-button value="detailed">Set up all hours in detail</mat-radio-button>
+        </mat-radio-group>
+      </mat-card>
+
+      <button mat-raised-button color="accent" matStepperNext>Finish Budget</button>
+    </div>
+  </form>
+  </mat-step>
+  <mat-step [stepControl]="secondFormGroup">
+    <form [formGroup]="secondFormGroup">
+      <div *ngFor="let garment of garments.controls; let i = index;">
+        <mat-card>
+          <h3>Garment {{ i + 1 }}</h3>
+
+          <mat-form-field appearance="fill">
+            <mat-label>Garment type</mat-label>
+            <mat-select>
+              <mat-option value="Jeans and Pants">Jeans and Pants</mat-option>
+              <mat-option value="Coats and Jackets">Coats and Jackets</mat-option>
+              <mat-option value="T-shirts">T-shirts</mat-option>
+              <!-- add more garment types -->
+            </mat-select>
+          </mat-form-field>
+
+
+          <div formGroupName="services">
+            <mat-checkbox >Moodboard + trend exploration</mat-checkbox>
+            <mat-checkbox >Concept Sketching</mat-checkbox>
+            <mat-checkbox >Technical Drawings</mat-checkbox>
+            <!-- add more services -->
+          </div>
+        </mat-card>
+      </div>
+
+      <button mat-raised-button color="primary" (click)="addGarment()">
+        <mat-icon>add</mat-icon> Add Garment
+      </button>
+      <div>
+        <button mat-button matStepperPrevious>Back</button>
+        <button mat-button matStepperNext>Next</button>
+      </div>
+    </form>
+  </mat-step>
+  <mat-step [stepControl]="thirdFormGroup">
+    <form [formGroup]="thirdFormGroup">
+      <mat-card>
+        <h3>Additional Services</h3>
+
+        <mat-checkbox >Alignment meetings</mat-checkbox>
+        <mat-form-field appearance="fill">
+          <mat-label>Meetings number</mat-label>
+          <input matInput type="number" />
+        </mat-form-field>
+
+        <mat-checkbox >Taxes</mat-checkbox>
+        <mat-form-field appearance="fill">
+          <mat-label>Tax %</mat-label>
+          <input matInput type="number" />
+        </mat-form-field>
+
+        <mat-checkbox >Additional expense</mat-checkbox>
+        <mat-form-field appearance="fill">
+          <mat-label>Expense Amount</mat-label>
+          <input matInput type="number" />
+        </mat-form-field>
+      </mat-card>
+    </form>
+  </mat-step>
+  <mat-step>
+    <ng-template matStepLabel>Done</ng-template>
+    <p>You are now done.</p>
+    <div>
+      <button mat-button matStepperPrevious>Back</button>
+      <button mat-button (click)="stepper.reset()">Reset</button>
+    </div>
+  </mat-step>
+</mat-stepper>
