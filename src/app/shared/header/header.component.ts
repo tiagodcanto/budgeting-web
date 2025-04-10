@@ -10,11 +10,10 @@ import { MatListModule } from '@angular/material/list';
 
 
 @Component({
-  selector: 'app-header',
-  standalone: true,
-  imports: [CommonModule, MatToolbarModule, MatButtonModule, RouterLink, MatIconModule, MatMenuModule, MatSidenavModule, MatListModule ],
-  templateUrl: './header.component.html',
-  styleUrl: './header.component.scss'
+    selector: 'app-header',
+    imports: [CommonModule, MatToolbarModule, MatButtonModule, RouterLink, MatIconModule, MatMenuModule, MatSidenavModule, MatListModule],
+    templateUrl: './header.component.html',
+    styleUrl: './header.component.scss'
 })
 export class HeaderComponent implements OnInit{
 

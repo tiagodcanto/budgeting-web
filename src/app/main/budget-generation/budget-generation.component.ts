@@ -15,26 +15,25 @@ import { CommonModule } from '@angular/common';
 
 
 @Component({
-  selector: 'app-budget-generation',
-  standalone: true,
-  imports: [
-    CommonModule,
-    FormsModule,
-    ReactiveFormsModule,
-    MatFormFieldModule,
-    MatInputModule,
-    MatSelectModule,
-    MatCheckboxModule,
-    MatRadioModule,
-    MatButtonModule,
-    MatIconModule,
-    MatSliderModule,
-    MatCardModule,
-    MatStepperModule,
-    MatAutocompleteModule
-  ],
-  templateUrl: './budget-generation.component.html',
-  styleUrl: './budget-generation.component.scss'
+    selector: 'app-budget-generation',
+    imports: [
+        CommonModule,
+        FormsModule,
+        ReactiveFormsModule,
+        MatFormFieldModule,
+        MatInputModule,
+        MatSelectModule,
+        MatCheckboxModule,
+        MatRadioModule,
+        MatButtonModule,
+        MatIconModule,
+        MatSliderModule,
+        MatCardModule,
+        MatStepperModule,
+        MatAutocompleteModule
+    ],
+    templateUrl: './budget-generation.component.html',
+    styleUrl: './budget-generation.component.scss'
 })
 export class BudgetGenerationComponent implements OnInit {
 

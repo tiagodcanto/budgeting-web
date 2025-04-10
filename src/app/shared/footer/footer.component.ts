@@ -6,13 +6,12 @@ import { MatButtonModule } from '@angular/material/button';
 import { MatInputModule } from '@angular/material/input';
 
 @Component({
-  selector: 'app-footer',
-  standalone: true,
-  imports: [
-    MatIconModule, MatInputModule, MatButtonModule
-  ],
-  templateUrl: './footer.component.html',
-  styleUrl: './footer.component.scss'
+    selector: 'app-footer',
+    imports: [
+        MatIconModule, MatInputModule, MatButtonModule
+    ],
+    templateUrl: './footer.component.html',
+    styleUrl: './footer.component.scss'
 })
 export class FooterComponent {
   currentYear = new Date().getFullYear();
