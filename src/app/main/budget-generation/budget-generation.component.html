@@ -1,7 +1,7 @@
 <p>start</p>
 <mat-stepper orientation="vertical" [linear]="false" #stepper>
   <mat-step [stepControl]="firstFormGroup">
-    <form [formGroup]="firstFormGroup">
+    <form [formGroup]="firstFormGroup" class="form-container-horizontal">
     <div class="container">
       <h2>Please fill in your information</h2>
 
@@ -15,14 +15,34 @@
         <mat-form-field appearance="outline">
           <mat-label>Currency</mat-label>
           <mat-select formControlName="currency">
-            <mat-option *ngFor="let c of currencies" [value]="c.code">
-              {{ c.symbol }} - {{ c.name }} ({{ c.code }})
+            <mat-option *ngFor="let c of filteredCurrencies" [value]="c.code">
+              {{ c.flag }} {{ c.symbol }} - {{ c.name }} ({{ c.code }})
             </mat-option>
           </mat-select>
         </mat-form-field>
 
-        <p>You selected: {{ budgetForm.value.currency }}</p>
-  <p>Rate: {{ selectedCurrencySymbol }}{{ budgetForm.value.ratePerHour }} per hour</p>
+        <mat-form-field appearance="outline" class="field">
+          <mat-label>Select Currency</mat-label>
+          <mat-select formControlName="currency">
+            <!-- Embedded input for filtering -->
+            <mat-option>
+              <input
+                matInput
+                placeholder="Search currency..."
+                [(ngModel)]="searchTerm"
+                (ngModelChange)="filterCurrencies()"
+                (click)="$event.stopPropagation()" />
+            </mat-option>
+
+            <!-- Filtered list -->
+            <mat-option *ngFor="let c of filteredCurrencies" [value]="c.code">
+              {{ c.flag }} {{ c.symbol }} - {{ c.name }} ({{ c.code }})
+            </mat-option>
+          </mat-select>
+        </mat-form-field>
+
+        <p>You selected: {{ firstFormGroup.value.currency }}</p>
+  <p>Rate: {{ selectedCurrencySymbol }}{{ firstFormGroup.value.ratePerHour }} per hour</p>
       </mat-card>
 
       <mat-card>

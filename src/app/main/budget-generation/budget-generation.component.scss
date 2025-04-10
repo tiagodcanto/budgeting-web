@@ -16,3 +16,23 @@ mat-form-field {
 button {
   margin-top: 20px;
 }
+
+.form-container-horizontal {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 16px;
+  align-items: flex-end;
+  margin: 20px;
+}
+
+.field {
+  flex: 1 1 250px;
+}
+
+.submit-button {
+  height: 56px; /* Aligns with mat-form-field */
+}
+
+.summary {
+  margin: 20px;
+}
