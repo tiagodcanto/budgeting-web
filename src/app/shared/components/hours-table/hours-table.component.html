@@ -1,0 +1,67 @@
+<div class="hour-table-container">
+  <table mat-table [dataSource]="rows" class="mat-elevation-z2">
+
+    <!-- Garment Type -->
+    <ng-container matColumnDef="garmentType">
+      <th mat-header-cell *matHeaderCellDef> Garment Type </th>
+      <td mat-cell *matCellDef="let row">
+        <mat-form-field appearance="fill" class="garment-select">
+          <mat-select [(ngModel)]="row.garmentType" (selectionChange)="onGarmentTypeChange(row)">
+            <!-- Filter input -->
+            <mat-option>
+              <input matInput [(ngModel)]="garmentFilter" (ngModelChange)="filterGarmentTypes()" placeholder="Search..." (click)="$event.stopPropagation()" />
+            </mat-option>
+
+            <!-- Filtered garment list -->
+            <mat-option *ngFor="let g of filteredGarmentTypes" [value]="g">{{ g }}</mat-option>
+          </mat-select>
+        </mat-form-field>
+
+        <!-- If 'Other' is selected, show custom input -->
+        <mat-form-field *ngIf="row.garmentType === 'Other'" appearance="fill">
+          <input matInput placeholder="Enter garment name" [(ngModel)]="row.customGarmentType" />
+        </mat-form-field>
+      </td>
+    </ng-container>
+
+    <!-- Level -->
+    <ng-container matColumnDef="level">
+      <th mat-header-cell *matHeaderCellDef> Level </th>
+      <td mat-cell *matCellDef="let row">
+        <mat-form-field appearance="fill">
+          <mat-select [(ngModel)]="row.level" (selectionChange)="applyAutoFill(row)">
+            <mat-option value="intermediate">Intermediate</mat-option>
+            <mat-option value="professional">Professional</mat-option>
+            <mat-option value="senior">Senior</mat-option>
+          </mat-select>
+        </mat-form-field>
+      </td>
+    </ng-container>
+
+    <!-- Tasks -->
+    <ng-container *ngFor="let task of taskColumns" [matColumnDef]="task.key">
+      <th mat-header-cell *matHeaderCellDef> {{ task.label }} </th>
+      <td mat-cell *matCellDef="let row">
+        <div class="task-inputs">
+          <mat-form-field appearance="fill">
+            <mat-label>Simple</mat-label>
+            <input matInput type="number" [(ngModel)]="row[task.key].simple" />
+          </mat-form-field>
+          <mat-form-field appearance="fill">
+            <mat-label>Complex</mat-label>
+            <input matInput type="number" [(ngModel)]="row[task.key].complex" />
+          </mat-form-field>
+          <mat-form-field appearance="fill">
+            <mat-label>Intricate</mat-label>
+            <input matInput type="number" [(ngModel)]="row[task.key].intricate" />
+          </mat-form-field>
+        </div>
+      </td>
+    </ng-container>
+
+    <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
+    <tr mat-row *matRowDef="let row; columns: displayedColumns;"></tr>
+  </table>
+
+  <button mat-raised-button color="primary" (click)="addGarmentRow()">Add Garment</button>
+</div>

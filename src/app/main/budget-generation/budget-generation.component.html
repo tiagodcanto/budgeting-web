@@ -1,4 +1,3 @@
-<p>start</p>
 <mat-stepper orientation="vertical" [linear]="false" #stepper>
   <mat-step [stepControl]="firstFormGroup">
     <form [formGroup]="firstFormGroup" class="form-container-horizontal">
@@ -7,55 +6,48 @@
 
       <mat-card>
         <h3>Set up Your Rate</h3>
-        <mat-form-field appearance="outline">
-          <mat-label>Rate per hour</mat-label>
-          <input matInput type="number" />
-        </mat-form-field>
+        <div class="flex-even">
+          <mat-form-field appearance="outline">
+            <mat-label>Rate per hour</mat-label>
+            <input matInput type="number" />
+          </mat-form-field>
 
-        <mat-form-field appearance="outline">
-          <mat-label>Currency</mat-label>
-          <mat-select formControlName="currency">
-            <mat-option *ngFor="let c of filteredCurrencies" [value]="c.code">
-              {{ c.flag }} {{ c.symbol }} - {{ c.name }} ({{ c.code }})
-            </mat-option>
-          </mat-select>
-        </mat-form-field>
+          <mat-form-field appearance="outline">
+            <mat-label>Currency</mat-label>
+            <mat-select formControlName="currency">
+              <mat-option *ngFor="let c of filteredCurrencies" [value]="c.code">
+                {{ c.flag }} {{ c.symbol }} - {{ c.name }} ({{ c.code }})
+              </mat-option>
+            </mat-select>
+          </mat-form-field>
+        </div>
 
-        <mat-form-field appearance="outline" class="field">
-          <mat-label>Select Currency</mat-label>
-          <mat-select formControlName="currency">
-            <!-- Embedded input for filtering -->
-            <mat-option>
-              <input
-                matInput
-                placeholder="Search currency..."
-                [(ngModel)]="searchTerm"
-                (ngModelChange)="filterCurrencies()"
-                (click)="$event.stopPropagation()" />
-            </mat-option>
-
-            <!-- Filtered list -->
-            <mat-option *ngFor="let c of filteredCurrencies" [value]="c.code">
-              {{ c.flag }} {{ c.symbol }} - {{ c.name }} ({{ c.code }})
-            </mat-option>
-          </mat-select>
-        </mat-form-field>
 
         <p>You selected: {{ firstFormGroup.value.currency }}</p>
   <p>Rate: {{ selectedCurrencySymbol }}{{ firstFormGroup.value.ratePerHour }} per hour</p>
       </mat-card>
 
-      <mat-card>
+      <mat-card class="mt-4">
         <h3>Set up Complexity Level</h3>
-        <mat-radio-group>
+        <mat-radio-group formControlName="complexityLevel">
           <mat-radio-button value="default">Set up all hours by default level</mat-radio-button><br>
           <mat-radio-button value="detailed">Set up all hours in detail</mat-radio-button>
         </mat-radio-group>
       </mat-card>
 
+
+
       <button mat-raised-button color="accent" matStepperNext>Finish Budget</button>
     </div>
+
   </form>
+  </mat-step>
+  <mat-step *ngIf="firstFormGroup.get('complexityLevel')?.value === 'detailed'">
+    <ng-template matStepLabel>Set up all hours</ng-template>
+    <app-hours-table
+      [rows]="garmentData"
+      (rowsChange)="garmentData = $event">
+    </app-hours-table>
   </mat-step>
   <mat-step [stepControl]="secondFormGroup">
     <form [formGroup]="secondFormGroup">
