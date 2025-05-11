@@ -1,11 +1,13 @@
 import { CommonModule } from '@angular/common';
-import { Component, Input, Output, EventEmitter, OnInit } from '@angular/core';
+import { Component, Input, Output, EventEmitter, OnInit, SimpleChanges, OnChanges } from '@angular/core';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { MatButtonModule } from '@angular/material/button';
 import { MatFormFieldModule } from '@angular/material/form-field';
+import { MatIconModule } from '@angular/material/icon';
 import { MatInputModule } from '@angular/material/input';
 import { MatSelectModule } from '@angular/material/select';
 import {MatTableModule} from '@angular/material/table';
+import { MatSnackBar, MatSnackBarModule } from '@angular/material/snack-bar';
 
 
 @Component({
@@ -19,13 +21,18 @@ import {MatTableModule} from '@angular/material/table';
     MatSelectModule,
     MatTableModule,
     MatButtonModule,
+    MatIconModule,
+    MatSnackBarModule
   ],
   templateUrl: './hours-table.component.html',
   styleUrl: './hours-table.component.scss'
 })
-export class HoursTableComponent implements OnInit {
+export class HoursTableComponent implements OnInit, OnChanges {
   @Input() rows: any[] = [];
+  @Input() complexityLevel: any;
+  @Input() level: any;
   @Output() rowsChange = new EventEmitter<any[]>();
+  @Output() selectedGarmentTypesChange = new EventEmitter<string[]>();
 
   taskColumns = [
     { key: 'sketch', label: 'Sketch (hrs)' },
@@ -74,12 +81,26 @@ export class HoursTableComponent implements OnInit {
     'Other'
   ];
 
-  displayedColumns = ['garmentType', 'level', ...this.taskColumns.map(t => t.key)];
+  displayedColumns = ['garmentType', 'level', ...this.taskColumns.map(t => t.key), 'delete'];
   garmentFilter = '';
   filteredGarmentTypes: string[] = [];
 
+  constructor(private snackBar: MatSnackBar) {}
+
   ngOnInit() {
     this.filteredGarmentTypes = [...this.garmentTypes];
+  }
+
+  ngOnChanges(changes: SimpleChanges): void {
+    const complexityChanged = changes['complexityLevel'];
+    const levelChanged = changes['level'];
+
+    if ((complexityChanged && this.complexityLevel === 'default' && !complexityChanged.firstChange) ||
+        (levelChanged && !levelChanged.firstChange && this.complexityLevel === 'default')) {
+      this.buildDefaultTable();
+    }
+
+      this.emitSelectedGarmentTypes();
   }
 
   filterGarmentTypes() {
@@ -90,7 +111,15 @@ export class HoursTableComponent implements OnInit {
   }
 
   addGarmentRow() {
-    console.log(this.rows)
+    const availableGarmentTypes = this.getAvailableGarmentTypes();
+
+    if (availableGarmentTypes.length === 0) {
+      this.snackBar.open('No more garment types available to add.', 'Close', {
+        duration: 3000,
+        panelClass: ['snackbar-warning']
+      });
+      return;
+    }
     const newRow = {
       garmentType: '',
       customGarmentType: '',
@@ -110,12 +139,14 @@ export class HoursTableComponent implements OnInit {
 
   onGarmentTypeChange(row: any) {
     const selected = row.garmentType;
+    console.log(row.garmentType)
 
-    if (
-      selected !== 'Other' &&
-      this.rows.filter(r => r.garmentType === selected).length > 1
-    ) {
-      alert(`You already selected "${selected}". Please choose a different type.`);
+    // Allow multiple "Other" types
+    if (selected !== 'Other' && this.rows.some(r => r.garmentType === selected && r !== row)) {
+      this.snackBar.open(`"${selected}" is already selected. Choose a different type.`, 'Close', {
+        duration: 3000,
+        panelClass: ['snackbar-warning']
+      });
       row.garmentType = '';
       return;
     }
@@ -133,5 +164,60 @@ export class HoursTableComponent implements OnInit {
     row.sketch = { ...preset.sketch };
     row.techDesign = { ...preset.techDesign };
     row.techPack = { ...preset.techPack };
+  }
+
+  buildDefaultTable() {
+    if (!this.complexityLevel || !this.level) return;
+
+    const level = this.level;
+    const defaultRows: any[] = [];
+
+    this.garmentTypes.forEach(garmentType => {
+      if (garmentType !== 'Other') {
+        const preset = this.hourPresets[level]?.[garmentType];
+
+        const row = {
+          garmentType,
+          customGarmentType: '',
+          level,
+          sketch: { simple: 0, complex: 0, intricate: 0 },
+          techDesign: { simple: 0, complex: 0, intricate: 0 },
+          techPack: { simple: 0, complex: 0, intricate: 0 }
+        };
+
+        if (preset) {
+          row.sketch = { ...preset.sketch };
+          row.techDesign = { ...preset.techDesign };
+          row.techPack = { ...preset.techPack };
+        }
+
+        defaultRows.push(row);
+      }
+    });
+
+    this.rows = defaultRows;
+    this.rowsChange.emit(defaultRows);
+  }
+
+  removeRow(index: number): void {
+    if (index >= 0 && index < this.rows.length) {
+      const updatedRows = [...this.rows];
+      updatedRows.splice(index, 1); // Remove the row at the specified index
+
+      this.rows = updatedRows;
+      this.rowsChange.emit(updatedRows);
+    }
+  }
+
+  getAvailableGarmentTypes(selectedType: string = ''): string[] {
+    const selectedTypes = this.rows.map(row => row.garmentType);
+
+    return this.garmentTypes.filter(type => {
+      return type === 'Other' || type === selectedType || !selectedTypes.includes(type);
+    });
+  }
+
+  emitSelectedGarmentTypes(): void {
+    this.selectedGarmentTypesChange.emit(this.rows);
   }
 }

@@ -2,13 +2,12 @@
   <span class="header-logo">
     <span class="toolbar-title" routerLink="/">Organza Hub</span>
   </span>
-  <span class="header-spacer"></span>
-  <nav class="header-nav desktop-only">
+  <div class="header-nav desktop-only">
     <button mat-button routerLink="/">Home</button>
     <button mat-button routerLink="/about">About</button>
-    <button mat-button routerLink="/contact">Contact</button>
-  </nav>
-  <span class="header-spacer"></span>
+    <button mat-button routerLink="/contact-us">Contact</button>
+  </div>
+  <button mat-raised-button color="accent" routerLink="/generate-budged">Generate Budged</button>
 
   <button mat-icon-button class="mobile-only" [matMenuTriggerFor]="mobileMenu">
     <mat-icon>menu</mat-icon>
@@ -18,5 +17,5 @@
 <mat-menu #mobileMenu="matMenu">
   <button mat-menu-item routerLink="/">Home</button>
   <button mat-menu-item routerLink="/about">About</button>
-  <button mat-menu-item routerLink="/contact">Contact</button>
+  <button mat-menu-item routerLink="/contact-us">Contact</button>
 </mat-menu>

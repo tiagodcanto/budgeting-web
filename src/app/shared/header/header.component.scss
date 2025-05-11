@@ -1,6 +1,6 @@
 .header-toolbar {
-  display: flex;
-  justify-content: space-between;
+  display: flex !important;
+  justify-content: space-evenly !important;
   align-items: center;
   background-color: #1f7c1f;
 }

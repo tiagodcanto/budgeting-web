@@ -1,0 +1,61 @@
+<div [formGroup]="garmentForm">
+  <div formArrayName="garments">
+    <div *ngFor="let garment of garments.controls; let i = index" [formGroupName]="i" class="garment-entry">
+
+      <h3>Garment {{ i + 1 }}</h3>
+
+      <mat-form-field appearance="fill">
+        <mat-label>Garment Name</mat-label>
+        <input matInput formControlName="name" placeholder="Enter garment name">
+      </mat-form-field>
+
+      <mat-form-field appearance="fill">
+        <mat-label>Garment Type</mat-label>
+        <mat-select formControlName="garmentType">
+          <mat-option *ngFor="let type of availableGarmentTypes" [value]="type.garmentType">
+            {{ type.garmentType }}
+          </mat-option>
+        </mat-select>
+      </mat-form-field>
+
+      <div class="services-section">
+        <h4>Select Services:</h4>
+        <mat-checkbox formControlName="Moodboard + trend exploration">
+          Moodboard + Trend Exploration
+        </mat-checkbox>
+
+        <mat-checkbox formControlName="Concept Sketching">
+          Concept Sketching
+        </mat-checkbox>
+
+        <mat-checkbox formControlName="Technical Drawings">
+          Technical Drawings
+        </mat-checkbox>
+
+        <mat-checkbox formControlName="Sample Making">
+          Sample Making
+        </mat-checkbox>
+
+        <mat-checkbox formControlName="Fabric Sourcing">
+          Fabric Sourcing
+        </mat-checkbox>
+
+        <mat-checkbox formControlName="Fitting Sessions">
+          Fitting Sessions
+        </mat-checkbox>
+
+        <mat-checkbox formControlName="Quality Control">
+          Quality Control
+        </mat-checkbox>
+      </div>
+
+      <button mat-icon-button color="warn" (click)="removeGarment(i)">
+        <mat-icon>delete</mat-icon>
+      </button>
+
+      <mat-divider></mat-divider>
+    </div>
+  </div>
+
+  <button mat-raised-button color="primary" (click)="addGarment()">Add Garment</button>
+</div>

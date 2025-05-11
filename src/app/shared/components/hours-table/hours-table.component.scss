@@ -1,9 +1,19 @@
 .task-inputs {
   display: flex;
-  gap: 8px;
   flex-wrap: wrap;
+  width: 150px;
 }
 
 .hour-table-container {
   margin-top: 20px;
+}
+
+.snackbar-warning {
+  background-color: #ff9800; /* Orange */
+  color: #fff;
+  font-weight: bold;
+}
+
+.big-field {
+  width: 280px;
 }

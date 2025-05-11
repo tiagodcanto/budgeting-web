@@ -13,27 +13,30 @@ import { MatSliderModule } from '@angular/material/slider';
 import {MatAutocompleteModule} from '@angular/material/autocomplete';
 import { CommonModule } from '@angular/common';
 import { HoursTableComponent } from '../../shared/components/hours-table/hours-table.component';
+import { PdfService } from '../../shared/services/pdf.service';
+import { GarmentStepComponent } from "../../shared/components/garment-step/garment-step.component";
 
 
 @Component({
     selector: 'app-budget-generation',
     imports: [
-        CommonModule,
-        FormsModule,
-        ReactiveFormsModule,
-        MatFormFieldModule,
-        MatInputModule,
-        MatSelectModule,
-        MatCheckboxModule,
-        MatRadioModule,
-        MatButtonModule,
-        MatIconModule,
-        MatSliderModule,
-        MatCardModule,
-        MatStepperModule,
-        MatAutocompleteModule,
-        HoursTableComponent
-    ],
+    CommonModule,
+    FormsModule,
+    ReactiveFormsModule,
+    MatFormFieldModule,
+    MatInputModule,
+    MatSelectModule,
+    MatCheckboxModule,
+    MatRadioModule,
+    MatButtonModule,
+    MatIconModule,
+    MatSliderModule,
+    MatCardModule,
+    MatStepperModule,
+    MatAutocompleteModule,
+    HoursTableComponent,
+    GarmentStepComponent
+],
     templateUrl: './budget-generation.component.html',
     styleUrl: './budget-generation.component.scss'
 })
@@ -46,6 +49,7 @@ export class BudgetGenerationComponent implements OnInit {
     ratePerHour: [''],
     currency: ['USD'],
     complexityLevel: ['default'],
+    level: ['intermediate'],
     garments: this.fb.array([this.createGarmentForm()]),
     alignmentMeetings: [false],
     meetingsNumber: [''],
@@ -59,6 +63,7 @@ export class BudgetGenerationComponent implements OnInit {
     ratePerHour: [''],
     currency: ['USD'],
     complexityLevel: ['default'],
+    level: [],
   });
   secondFormGroup = this._formBuilder.group({
     secondCtrl: ['', Validators.required],
@@ -87,9 +92,10 @@ export class BudgetGenerationComponent implements OnInit {
   filteredCurrencies: any;
   searchTerm = '';
   garmentData: any = [];
+  rowsData: any[] = [];
+  selectedGarmentTypes: string[] = [];
 
-
-  constructor(private fb: FormBuilder, private _formBuilder: FormBuilder) {
+  constructor(private fb: FormBuilder, private _formBuilder: FormBuilder, private pdfService: PdfService) {
     this.filteredCurrencies = this.currencies;
 
     this.currencyFilter.valueChanges.subscribe(value => {
@@ -141,6 +147,21 @@ export class BudgetGenerationComponent implements OnInit {
   submitBudget() {
     console.log(this.budgetForm.value);
     // Handle submission logic
+  }
+
+  downloadPDF() {
+    this.pdfService.generateGarmentReport(this.garmentData, this.selectedCurrencySymbol);
+  }
+
+  onRowsUpdated(updatedRows: any[]): void {
+    this.rowsData = updatedRows;
+  }
+
+  onSelectedGarmentTypesChange(selectedTypes: string[]): void {
+    this.selectedGarmentTypes = selectedTypes;
+    console.log('Selected Garment Types:', selectedTypes);
+
+    console.log('Selected Garment Types:', this.selectedGarmentTypes);
   }
 }
 

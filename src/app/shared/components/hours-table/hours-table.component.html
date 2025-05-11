@@ -4,21 +4,18 @@
     <!-- Garment Type -->
     <ng-container matColumnDef="garmentType">
       <th mat-header-cell *matHeaderCellDef> Garment Type </th>
-      <td mat-cell *matCellDef="let row">
-        <mat-form-field appearance="fill" class="garment-select">
+      <td mat-cell *matCellDef="let row" class="big-field">
+        <mat-form-field appearance="fill" class="garment-select big-field">
           <mat-select [(ngModel)]="row.garmentType" (selectionChange)="onGarmentTypeChange(row)">
-            <!-- Filter input -->
-            <mat-option>
-              <input matInput [(ngModel)]="garmentFilter" (ngModelChange)="filterGarmentTypes()" placeholder="Search..." (click)="$event.stopPropagation()" />
-            </mat-option>
-
             <!-- Filtered garment list -->
-            <mat-option *ngFor="let g of filteredGarmentTypes" [value]="g">{{ g }}</mat-option>
+            <mat-option *ngFor="let type of getAvailableGarmentTypes(row.garmentType)" [value]="type">
+              {{ type }}
+            </mat-option>
           </mat-select>
         </mat-form-field>
 
         <!-- If 'Other' is selected, show custom input -->
-        <mat-form-field *ngIf="row.garmentType === 'Other'" appearance="fill">
+        <mat-form-field *ngIf="row.garmentType === 'Other'" appearance="fill" class="big-field">
           <input matInput placeholder="Enter garment name" [(ngModel)]="row.customGarmentType" />
         </mat-form-field>
       </td>
@@ -43,7 +40,7 @@
       <th mat-header-cell *matHeaderCellDef> {{ task.label }} </th>
       <td mat-cell *matCellDef="let row">
         <div class="task-inputs">
-          <mat-form-field appearance="fill">
+          <mat-form-field appearance="fill" class="mt-4">
             <mat-label>Simple</mat-label>
             <input matInput type="number" [(ngModel)]="row[task.key].simple" />
           </mat-form-field>
@@ -59,9 +56,22 @@
       </td>
     </ng-container>
 
+    <!-- Delete Button Column -->
+    <ng-container matColumnDef="delete">
+      <th mat-header-cell *matHeaderCellDef> </th>
+      <td mat-cell *matCellDef="let row; let i = index">
+        <button mat-icon-button color="warn" (click)="removeRow(i)">
+          <mat-icon>delete</mat-icon>
+        </button>
+      </td>
+    </ng-container>
+
     <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
     <tr mat-row *matRowDef="let row; columns: displayedColumns;"></tr>
   </table>
 
-  <button mat-raised-button color="primary" (click)="addGarmentRow()">Add Garment</button>
+  <button mat-raised-button class="mt-4" color="primary" (click)="addGarmentRow()">
+    <mat-icon>add</mat-icon>
+    Add Hours
+  </button>
 </div>
