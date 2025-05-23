@@ -9,8 +9,7 @@ import { MatSelectModule } from '@angular/material/select';
 import {MatDividerModule} from '@angular/material/divider';
 import { MatRadioModule } from '@angular/material/radio';
 import {MatCheckboxModule} from '@angular/material/checkbox';
-
-
+import {MatExpansionModule} from '@angular/material/expansion';
 
 @Component({
   selector: 'app-garment-step',
@@ -25,7 +24,8 @@ import {MatCheckboxModule} from '@angular/material/checkbox';
     MatRadioModule,
     MatIconModule,
     MatDividerModule,
-    MatCheckboxModule
+    MatCheckboxModule,
+    MatExpansionModule
   ],
   templateUrl: './garment-step.component.html',
   styleUrl: './garment-step.component.scss'
@@ -56,7 +56,7 @@ export class GarmentStepComponent implements OnInit {
           'Sample Making': [false],
           'Fabric Sourcing': [false],
           'Fitting Sessions': [false],
-          'Quality Control': [false]
+          'Quality Control': [false],
         })
       ])
     });

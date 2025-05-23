@@ -1,15 +1,39 @@
+
 .garment-entry {
   margin-bottom: 16px;
   padding: 16px;
   border: 1px solid #ddd;
   border-radius: 8px;
-  background-color: #f9f9f9;
+  background-color: transparent;
 }
 
 .services-section {
   margin-top: 16px;
+  display: flex;
+  flex-direction: column;
 }
 
 mat-divider {
   margin: 16px 0;
+}
+
+.justify {
+  justify-content: space-between;
+}
+
+.title {
+  padding-left: 10px;
+  padding-top: 10px;
+}
+
+.ml-20 {
+  margin-left: 20px;
+}
+
+.big-field {
+  width: 480px;
+}
+
+.field-280 {
+  width: 280px;
 }

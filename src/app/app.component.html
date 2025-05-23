@@ -1,8 +1,17 @@
 <div class="app-container">
-  <app-header></app-header>
-  <main class="main-content container">
-    <router-outlet></router-outlet>
-  </main>
+  <div style="background-color: #EBE5E3;">
 
-  <app-footer class="footer"></app-footer>
+
+  <mat-card style="margin: 50px; background-color: #F9F6F4; border-radius: 20px;">
+    <app-header></app-header>
+    <main class="main-content container">
+      <router-outlet></router-outlet>
+    </main>
+  </mat-card>
+  <mat-card class="footer" style="margin: 50px; background-color: #F9F6F4;">
+    <app-footer class="footer"></app-footer>
+  </mat-card>
+</div>
+
+
 </div>

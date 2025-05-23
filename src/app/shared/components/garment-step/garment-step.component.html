@@ -1,15 +1,23 @@
 <div [formGroup]="garmentForm">
-  <div formArrayName="garments">
-    <div *ngFor="let garment of garments.controls; let i = index" [formGroupName]="i" class="garment-entry">
+  <mat-accordion formArrayName="garments">
+    <mat-expansion-panel *ngFor="let garment of garments.controls; let i = index" [formGroupName]="i" class="garment-entry" expanded="true" #panel>
 
-      <h3>Garment {{ i + 1 }}</h3>
 
-      <mat-form-field appearance="fill">
+
+
+      <mat-expansion-panel-header class="d-flex justify">
+        <mat-panel-title class="title">Garment {{ i + 1 }}: {{ garment.get('name')?.value || 'Unnamed' }}</mat-panel-title>
+        <mat-panel-description>{{ garment.get('garmentType')?.value || 'Garment Type' }}</mat-panel-description>
+
+      </mat-expansion-panel-header>
+
+
+      <mat-form-field appearance="fill" class="big-field">
         <mat-label>Garment Name</mat-label>
         <input matInput formControlName="name" placeholder="Enter garment name">
       </mat-form-field>
 
-      <mat-form-field appearance="fill">
+      <mat-form-field appearance="fill" class="ml-20 field-280">
         <mat-label>Garment Type</mat-label>
         <mat-select formControlName="garmentType">
           <mat-option *ngFor="let type of availableGarmentTypes" [value]="type.garmentType">
@@ -17,11 +25,23 @@
           </mat-option>
         </mat-select>
       </mat-form-field>
+<mat-divider></mat-divider>
+      <div>
+        <h4>Complexity</h4>
+
+        <mat-radio-group >
+          <mat-radio-button value="intermediate">Intermediate</mat-radio-button>
+          <mat-radio-button value="professional">Professional</mat-radio-button>
+          <mat-radio-button value="senior">Senior</mat-radio-button>
+        </mat-radio-group>
+      </div>
+
+      <mat-divider></mat-divider>
 
       <div class="services-section">
         <h4>Select Services:</h4>
         <mat-checkbox formControlName="Moodboard + trend exploration">
-          Moodboard + Trend Exploration
+          Moodboard + Trend Exploration + Colour analizes
         </mat-checkbox>
 
         <mat-checkbox formControlName="Concept Sketching">
@@ -33,29 +53,62 @@
         </mat-checkbox>
 
         <mat-checkbox formControlName="Sample Making">
-          Sample Making
+          TP Assembly
         </mat-checkbox>
 
         <mat-checkbox formControlName="Fabric Sourcing">
-          Fabric Sourcing
+          Size Chart
         </mat-checkbox>
 
         <mat-checkbox formControlName="Fitting Sessions">
-          Fitting Sessions
+          Patterns
         </mat-checkbox>
 
         <mat-checkbox formControlName="Quality Control">
-          Quality Control
+          Material sourcing and development
+        </mat-checkbox>
+
+        <mat-checkbox formControlName="Quality Control">
+          Testing requirements follow up
         </mat-checkbox>
       </div>
 
-      <button mat-icon-button color="warn" (click)="removeGarment(i)">
-        <mat-icon>delete</mat-icon>
-      </button>
+
 
       <mat-divider></mat-divider>
-    </div>
-  </div>
 
-  <button mat-raised-button color="primary" (click)="addGarment()">Add Garment</button>
+      <div>
+        <h4>Colour</h4>
+        <mat-form-field appearance="fill" class="big-field">
+          <mat-label>Colourway number</mat-label>
+          <input matInput formControlName="name" placeholder="Enter garment name">
+        </mat-form-field>
+      </div>
+
+      <div>
+        <h4>Fittings</h4>
+        <mat-form-field appearance="fill" class="big-field">
+          <mat-label>Fittings revision number</mat-label>
+          <input matInput formControlName="name" placeholder="Enter garment name">
+        </mat-form-field>
+
+        <div>
+          <mat-form-field appearance="fill" class="big-field">
+            <mat-label>Size set revision number</mat-label>
+            <input matInput formControlName="name" placeholder="Enter garment name">
+          </mat-form-field>
+        </div>
+      </div>
+
+      <div class="d-flex justify">
+        <button mat-stroked-button color="primary" (click)="panel.close()">Finish</button>
+        <button mat-icon-button color="warn" (click)="removeGarment(i)">
+          <mat-icon>delete</mat-icon>
+        </button>
+      </div>
+
+    </mat-expansion-panel>
+  </mat-accordion>
+
+  <button mat-raised-button color="primary" class="mt-4" (click)="addGarment()">Add Garment</button>
 </div>

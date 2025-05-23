@@ -2,7 +2,8 @@
   display: flex !important;
   justify-content: space-evenly !important;
   align-items: center;
-  background-color: #1f7c1f;
+  background-color: #D5C8DB;
+  color: #444D54;
 }
 
 .toolbar-title {
@@ -73,4 +74,9 @@
   .mobile-only {
     display: none;
   }
+}
+
+
+button {
+  color: #444D54 !important;
 }

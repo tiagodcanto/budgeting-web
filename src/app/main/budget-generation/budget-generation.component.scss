@@ -6,11 +6,16 @@
 mat-card {
   padding: 16px;
   margin-top: 16apx;
+  background-color: transparent;
 }
 
 mat-form-field {
   display: block;
   margin-bottom: 12px;
+}
+
+.transparent {
+ background-color: transparent !important;
 }
 
 button {
