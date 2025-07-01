@@ -40,35 +40,35 @@
 
       <div class="services-section">
         <h4>Select Services:</h4>
-        <mat-checkbox formControlName="Moodboard + trend exploration">
+        <mat-checkbox formControlName="moodboard">
           Moodboard + Trend Exploration + Colour analizes
         </mat-checkbox>
 
-        <mat-checkbox formControlName="Concept Sketching">
+        <mat-checkbox formControlName="sketching">
           Concept Sketching
         </mat-checkbox>
 
-        <mat-checkbox formControlName="Technical Drawings">
+        <mat-checkbox formControlName="drawings">
           Technical Drawings
         </mat-checkbox>
 
-        <mat-checkbox formControlName="Sample Making">
+        <mat-checkbox formControlName="TPAssembly">
           TP Assembly
         </mat-checkbox>
 
-        <mat-checkbox formControlName="Fabric Sourcing">
+        <mat-checkbox formControlName="size">
           Size Chart
         </mat-checkbox>
 
-        <mat-checkbox formControlName="Fitting Sessions">
+        <mat-checkbox formControlName="patterns">
           Patterns
         </mat-checkbox>
 
-        <mat-checkbox formControlName="Quality Control">
+        <mat-checkbox formControlName="material">
           Material sourcing and development
         </mat-checkbox>
 
-        <mat-checkbox formControlName="Quality Control">
+        <mat-checkbox formControlName="testing">
           Testing requirements follow up
         </mat-checkbox>
       </div>
@@ -81,7 +81,7 @@
         <h4>Colour</h4>
         <mat-form-field appearance="fill" class="big-field">
           <mat-label>Colourway number</mat-label>
-          <input matInput formControlName="name" placeholder="Enter garment name">
+          <input matInput formControlName="colourway" placeholder="Enter garment name">
         </mat-form-field>
       </div>
 
@@ -89,19 +89,19 @@
         <h4>Fittings</h4>
         <mat-form-field appearance="fill" class="big-field">
           <mat-label>Fittings revision number</mat-label>
-          <input matInput formControlName="name" placeholder="Enter garment name">
+          <input matInput formControlName="fittings" placeholder="Enter garment name">
         </mat-form-field>
 
         <div>
           <mat-form-field appearance="fill" class="big-field">
             <mat-label>Size set revision number</mat-label>
-            <input matInput formControlName="name" placeholder="Enter garment name">
+            <input matInput formControlName="revision" placeholder="Enter garment name">
           </mat-form-field>
         </div>
       </div>
 
       <div class="d-flex justify">
-        <button mat-stroked-button color="primary" (click)="panel.close()">Finish</button>
+        <button mat-stroked-button color="primary" (click)="updateGarment(); panel.close()">Finish</button>
         <button mat-icon-button color="warn" (click)="removeGarment(i)">
           <mat-icon>delete</mat-icon>
         </button>

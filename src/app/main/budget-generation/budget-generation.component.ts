@@ -1,3 +1,4 @@
+import { BudgetDataService } from './../../shared/services/budget-data.service';
 import { MatStepperModule } from '@angular/material/stepper';
 import { Component, ElementRef, OnInit, ViewChild } from '@angular/core';
 import { FormsModule, ReactiveFormsModule, FormBuilder, FormArray, FormGroup, Validators, FormControl } from '@angular/forms';
@@ -93,9 +94,11 @@ export class BudgetGenerationComponent implements OnInit {
   searchTerm = '';
   garmentData: any = [];
   rowsData: any[] = [];
+  garmentsList: any = [];
   selectedGarmentTypes: string[] = [];
 
-  constructor(private fb: FormBuilder, private _formBuilder: FormBuilder, private pdfService: PdfService) {
+  constructor(private fb: FormBuilder, private _formBuilder: FormBuilder, private pdfService: PdfService,
+    private budgetDataService: BudgetDataService) {
     this.filteredCurrencies = this.currencies;
 
     this.currencyFilter.valueChanges.subscribe(value => {
@@ -162,6 +165,12 @@ export class BudgetGenerationComponent implements OnInit {
     console.log('Selected Garment Types:', selectedTypes);
 
     console.log('Selected Garment Types:', this.selectedGarmentTypes);
+  }
+
+  getGarmentList() {
+    console.log(this.budgetDataService.garments());
+        console.log(this.budgetDataService.hours());
+
   }
 }
 

@@ -1,3 +1,4 @@
+import { BudgetDataService } from './../../services/budget-data.service';
 import { CommonModule } from '@angular/common';
 import { Component, Input, OnInit } from '@angular/core';
 import { FormGroup, FormBuilder, FormArray, FormsModule, ReactiveFormsModule } from '@angular/forms';
@@ -32,34 +33,32 @@ import {MatExpansionModule} from '@angular/material/expansion';
 })
 export class GarmentStepComponent implements OnInit {
   @Input() availableGarmentTypes: any[] = [];
+
   garmentForm: FormGroup;
 
-  servicesList = [
-    'Moodboard + trend exploration',
-    'Concept Sketching',
-    'Technical Drawings',
-    'Sample Making',
-    'Fabric Sourcing',
-    'Fitting Sessions',
-    'Quality Control'
-  ];
-
-  constructor(private fb: FormBuilder) {
+  constructor(private fb: FormBuilder, private budgetDataService: BudgetDataService) {
     this.garmentForm = this.fb.group({
       garments: this.fb.array([
         this.fb.group({
           name: [''],
           garmentType: [''],
-          'Moodboard + trend exploration': [false],
-          'Concept Sketching': [false],
-          'Technical Drawings': [false],
-          'Sample Making': [false],
-          'Fabric Sourcing': [false],
-          'Fitting Sessions': [false],
-          'Quality Control': [false],
+          complexity: [''],
+          moodboard: [false],
+          sketching: [false],
+          drawings: [false],
+          TPAssembly: [false],
+          size: [false],
+          patterns: [false],
+          material: [false],
+          testing: [false],
+          colourway: [''],
+          fittings: [''],
+          revision: ['']
         })
       ])
     });
+    this.updateGarment();
+
   }
 
   ngOnInit() {}
@@ -73,20 +72,35 @@ export class GarmentStepComponent implements OnInit {
     const garmentGroup = this.fb.group({
       name: [''],
       garmentType: [''],
-      'Moodboard + trend exploration': [false],
-      'Concept Sketching': [false],
-      'Technical Drawings': [false],
-      'Sample Making': [false],
-      'Fabric Sourcing': [false],
-      'Fitting Sessions': [false],
-      'Quality Control': [false]
+      complexity: [''],
+      moodboard: [false],
+      sketching: [false],
+      drawings: [false],
+      TPAssembly: [false],
+      size: [false],
+      patterns: [false],
+      material: [false],
+      testing: [false],
+      colourway: [''],
+      fittings: [''],
+      revision: ['']
     });
 
     this.garments.push(garmentGroup);
-      console.log(this.garmentForm.value);
+      console.log(this.garments.value);
+
+
+    this.updateGarment();
+
   }
 
   removeGarment(index: number) {
     this.garments.removeAt(index);
+    this.updateGarment();
+
+  }
+
+  updateGarment() {
+    this.budgetDataService.setGarments(this.garments.value);
   }
 }

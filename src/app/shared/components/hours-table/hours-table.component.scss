@@ -17,3 +17,8 @@
 .big-field {
   width: 280px;
 }
+
+.mat-option[disabled] {
+  opacity: 0.6;
+  font-style: italic;
+}

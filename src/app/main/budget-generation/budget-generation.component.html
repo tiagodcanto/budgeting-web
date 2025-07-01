@@ -68,7 +68,9 @@
   </mat-step>
   <mat-step [stepControl]="secondFormGroup">
     <ng-template matStepLabel>Garments</ng-template>
-    <app-garment-step [availableGarmentTypes]="selectedGarmentTypes"></app-garment-step>
+    <app-garment-step
+      [availableGarmentTypes]="selectedGarmentTypes">
+    </app-garment-step>
 
       <div>
         <button mat-button matStepperPrevious>Back</button>
@@ -100,6 +102,11 @@
           <mat-label>Expense Amount</mat-label>
           <input matInput type="number" />
         </mat-form-field>
+
+        <div>
+          <button mat-button matStepperPrevious>Back</button>
+          <button mat-button matStepperNext>Next</button>
+        </div>
       </mat-card>
     </form>
   </mat-step>
@@ -107,6 +114,8 @@
     <ng-template matStepLabel>Done</ng-template>
     <p>You are now done.</p>
     <button mat-raised-button color="accent" (click)="downloadPDF()">Download PDF</button>
+<button mat-raised-button color="accent" (click)="getGarmentList()">Garment</button>
+
 
     <div>
       <button mat-button matStepperPrevious>Back</button>
