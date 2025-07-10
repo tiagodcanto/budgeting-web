@@ -174,7 +174,6 @@ export class HoursTableComponent implements OnInit, OnChanges {
   }
 
   addGarmentRow() {
-
     const newRow = {
       garmentType: '',
       customGarmentType: '',
@@ -194,30 +193,14 @@ export class HoursTableComponent implements OnInit, OnChanges {
   }
 
   onGarmentTypeChange(row: any) {
-    const selectedType = row.garmentType;
-    const selectedLevel = row.level;
+    const selected  = row.garmentType;
 
-    // Allow multiple "Other"
-    if (selectedType === 'Other') {
-      this.applyAutoFill(row);
-      return;
-    }
-
-    const duplicate = this.dataToDisplay.some(r =>
-      r !== row &&
-      r.garmentType === selectedType &&
-      r.level === selectedLevel
-    );
-
-    if (duplicate) {
-      this.snackBar.open(`"${selectedType}" already exists for "${selectedLevel}".`, 'Close', {
+    if (selected !== 'Other' && this.dataToDisplay.some(r => r.garmentType === selected && r !== row)) {
+      this.snackBar.open(`"${selected}" is already selected. Choose a different type.`, 'Close', {
         duration: 3000,
         panelClass: ['snackbar-warning']
       });
-      row.garmentType = '';
-      return;
     }
-
     this.applyAutoFill(row);
   }
 
@@ -317,34 +300,11 @@ export class HoursTableComponent implements OnInit, OnChanges {
     }
   }
 
-  getAvailableGarmentTypes(currentType: string = '', currentLevel: string = ''): string[] {
-    const usedMap: Record<string, Set<string>> = {};
-
-    for (const row of this.dataToDisplay) {
-      if (!usedMap[row.garmentType]) {
-        usedMap[row.garmentType] = new Set();
-      }
-      usedMap[row.garmentType].add(row.level);
-    }
-
-    const available = this.garmentTypes.filter(type => {
-      if (type === 'Other') return true;
-
-      const usedLevels = usedMap[type] || new Set();
-
-      // Allow if:
-      // - Type not fully used
-      // - OR it’s the current selected value (even if fully used)
-      const isCurrent = type === currentType;
-      return usedLevels.size < 3 || isCurrent;
-    });
-
-    // Ensure current value is always in the list (in case it's a custom/legacy value)
-    if (currentType && !available.includes(currentType)) {
-      available.push(currentType);
-    }
-
-    return available;
+  getAvailableGarmentTypes(selectedType: string = ''): string[] {
+    const selectedTypes = this.dataToDisplay.map(row => row.garmentType);
+    return this.garmentTypes.filter(type => {
+      return type === 'Other' || type === selectedType || !selectedTypes.includes(type);
+      });
   }
 
   emitSelectedGarmentTypes(): void {
@@ -353,42 +313,6 @@ export class HoursTableComponent implements OnInit, OnChanges {
 
   updateHours() {
     this.budgetDataService.setHours(this.dataToDisplay);
-  }
-
-  getDisabledLevels(currentRow: any): string[] {
-    const type = currentRow.garmentType;
-    if (!type || type === 'Other') return [];
-
-    return this.dataToDisplay
-      .filter(row => row !== currentRow && row.garmentType === type)
-      .map(row => row.level);
-  }
-
-  onLevelChange(row: any) {
-    const selectedType = row.garmentType;
-    const selectedLevel = row.level;
-
-    if (!selectedType || selectedType === 'Other') {
-      this.applyAutoFill(row);
-      return;
-    }
-
-    const duplicate = this.dataToDisplay.some(r =>
-      r !== row &&
-      r.garmentType === selectedType &&
-      r.level === selectedLevel
-    );
-
-    if (duplicate) {
-      this.snackBar.open(`"${selectedType}" already exists with "${selectedLevel}".`, 'Close', {
-        duration: 3000,
-        panelClass: ['snackbar-warning']
-      });
-      row.level = '';
-      return;
-    }
-
-    this.applyAutoFill(row);
   }
 
   applyFilter(event: Event) {

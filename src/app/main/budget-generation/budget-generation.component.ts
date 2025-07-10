@@ -64,6 +64,7 @@ export class BudgetGenerationComponent implements OnInit {
     ratePerHour: [''],
     currency: ['USD'],
     complexityLevel: [null],
+    level: [],
   });
   secondFormGroup = this._formBuilder.group({
     secondCtrl: ['', Validators.required],
