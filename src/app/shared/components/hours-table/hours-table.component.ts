@@ -33,7 +33,6 @@ export class HoursTableComponent implements OnInit, OnChanges {
   dataToDisplay: any[] = [];
 
   @Input() complexityLevel: any;
-  @Input() level: any;
   @Output() rowsChange = new EventEmitter<any[]>();
   @Output() selectedGarmentTypesChange = new EventEmitter<string[]>();
 
@@ -218,31 +217,68 @@ export class HoursTableComponent implements OnInit, OnChanges {
   }
 
   buildDefaultTable() {
-    if (!this.complexityLevel || !this.level) return;
+    if (!this.complexityLevel) return;
 
-    const level = this.level;
     const defaultRows: any[] = [];
 
     this.garmentTypes.forEach(garmentType => {
       if (garmentType !== 'Other') {
-        const preset = this.hourPresets[level]?.[garmentType];
+        const presetIntermediate = this.hourPresets['intermediate']?.[garmentType];
 
-        const row = {
+        const rowIntermediate = {
           garmentType,
           customGarmentType: '',
-          level,
+          level: 'intermediate',
           sketch: { simple: 0, complex: 0, intricate: 0 },
           techDesign: { simple: 0, complex: 0, intricate: 0 },
           techPack: { simple: 0, complex: 0, intricate: 0 }
         };
 
-        if (preset) {
-          row.sketch = { ...preset.sketch };
-          row.techDesign = { ...preset.techDesign };
-          row.techPack = { ...preset.techPack };
+        if (presetIntermediate) {
+          rowIntermediate.sketch = { ...presetIntermediate.sketch };
+          rowIntermediate.techDesign = { ...presetIntermediate.techDesign };
+          rowIntermediate.techPack = { ...presetIntermediate.techPack };
         }
 
-        defaultRows.push(row);
+        defaultRows.push(rowIntermediate);
+
+        const presetProfessional = this.hourPresets['professional']?.[garmentType];
+
+        const rowProfessional = {
+          garmentType,
+          customGarmentType: '',
+          level: 'professional',
+          sketch: { simple: 0, complex: 0, intricate: 0 },
+          techDesign: { simple: 0, complex: 0, intricate: 0 },
+          techPack: { simple: 0, complex: 0, intricate: 0 }
+        };
+
+        if (presetProfessional) {
+          rowProfessional.sketch = { ...presetProfessional.sketch };
+          rowProfessional.techDesign = { ...presetProfessional.techDesign };
+          rowProfessional.techPack = { ...presetProfessional.techPack };
+        }
+
+        defaultRows.push(rowProfessional);
+
+        const presetSenior = this.hourPresets['senior']?.[garmentType];
+
+        const rowSenior = {
+          garmentType,
+          customGarmentType: '',
+          level: 'senior',
+          sketch: { simple: 0, complex: 0, intricate: 0 },
+          techDesign: { simple: 0, complex: 0, intricate: 0 },
+          techPack: { simple: 0, complex: 0, intricate: 0 }
+        };
+
+        if (presetSenior) {
+          rowSenior.sketch = { ...presetSenior.sketch };
+          rowSenior.techDesign = { ...presetSenior.techDesign };
+          rowSenior.techPack = { ...presetSenior.techPack };
+        }
+
+        defaultRows.push(rowSenior);
       }
     });
 
