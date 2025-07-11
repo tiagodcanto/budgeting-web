@@ -1,9 +1,9 @@
 .header-toolbar {
   display: flex !important;
-  justify-content: space-evenly !important;
+  justify-content: space-around !important;
   align-items: center;
-  background-color: #D5C8DB;
   color: #444D54;
+  min-height: 150px;
 }
 
 .toolbar-title {
@@ -41,7 +41,7 @@
 }
 
 .header-logo img {
-  height: 40px;
+  height: 75px;
   margin-right: 10px;
 }
 
@@ -79,4 +79,20 @@
 
 button {
   color: #444D54 !important;
+}
+
+.header-nav {
+  border: 2px solid #EBE5E3;
+  border-radius: 25px;
+}
+
+.menu-btn {
+  font-family: "Inter";
+  font-size: 24px;
+  width: 208.67px;
+  border-radius: 25px;
+}
+
+.active-link {
+  background-color: #EBE5E3;
 }

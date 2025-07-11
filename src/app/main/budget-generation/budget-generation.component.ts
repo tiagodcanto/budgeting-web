@@ -50,7 +50,7 @@ export class BudgetGenerationComponent implements OnInit {
     ratePerHour: [''],
     currency: ['USD'],
     complexityLevel: ['default'],
-    level: ['intermediate'],
+    level: [null],
     garments: this.fb.array([this.createGarmentForm()]),
     alignmentMeetings: [false],
     meetingsNumber: [''],

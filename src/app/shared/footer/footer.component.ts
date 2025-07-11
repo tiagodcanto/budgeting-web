@@ -8,8 +8,9 @@ import { MatInputModule } from '@angular/material/input';
 @Component({
     selector: 'app-footer',
     imports: [
-        MatIconModule, MatInputModule, MatButtonModule
-    ],
+    MatIconModule, MatInputModule, MatButtonModule,
+    MatCardModule
+],
     templateUrl: './footer.component.html',
     styleUrl: './footer.component.scss'
 })

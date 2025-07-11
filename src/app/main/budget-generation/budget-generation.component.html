@@ -34,6 +34,15 @@
           <mat-radio-button value="default">Set up all hours by default level</mat-radio-button><br>
           <mat-radio-button value="detailed">Set up all hours in detail</mat-radio-button>
         </mat-radio-group>
+
+        <mat-form-field appearance="outline" class="mt-4">
+          <mat-label>Level</mat-label>
+          <mat-select formControlName="level">
+            <mat-option value="intermediate">Intermediate</mat-option>
+            <mat-option value="professional">Professional</mat-option>
+            <mat-option value="senior">Senior</mat-option>
+          </mat-select>
+        </mat-form-field>
       </mat-card>
 
       <button mat-raised-button style="background-color: #D5C8DB;" matStepperNext>Next</button>
@@ -46,6 +55,7 @@
     <p>Please add a new garment type to setup how many hours you take to finish it.</p>
     <app-hours-table
       [complexityLevel]="firstFormGroup.get('complexityLevel')?.value"
+      [level]="firstFormGroup.get('level')?.value"
       (rowsChange)="garmentData = $event"
       (selectedGarmentTypesChange)="onSelectedGarmentTypesChange($event)">
     </app-hours-table>

@@ -1,21 +1,23 @@
-<mat-toolbar color="primary" class="header-toolbar" style="background-color: transparent;">
-  <span class="header-logo">
-    <span class="toolbar-title" routerLink="/">Organza Hub</span>
-  </span>
-  <div class="header-nav desktop-only">
-    <button mat-button routerLink="/">Home</button>
-    <button mat-button routerLink="/about">About</button>
-    <button mat-button routerLink="/contact-us">Contact</button>
-  </div>
-  <button mat-raised-button color="accent" routerLink="/generate-budged">Generate Budged</button>
+  <mat-toolbar color="primary" class="header-toolbar" style="background-color: transparent;">
+    <span class="header-logo">
+      <img src="../../../assets/images/logo.png" alt="organza-hub-logo" (click)="null">
+    </span>
+    <div class="header-nav desktop-only">
+      <button class="menu-btn" mat-button routerLink="/"
+        routerLinkActive="active-link" [routerLinkActiveOptions]="{ exact: true }">
+        Home
+      </button>
+      <button class="menu-btn" mat-button routerLink="/about" routerLinkActive="active-link">About</button>
+      <button class="menu-btn" mat-button routerLink="/contact-us" routerLinkActive="active-link">Contact</button>
+    </div>
 
-  <button mat-icon-button class="mobile-only" [matMenuTriggerFor]="mobileMenu">
-    <mat-icon>menu</mat-icon>
-  </button>
-</mat-toolbar>
+    <button mat-icon-button class="mobile-only" [matMenuTriggerFor]="mobileMenu">
+      <mat-icon>menu</mat-icon>
+    </button>
+  </mat-toolbar>
 
-<mat-menu #mobileMenu="matMenu">
-  <button mat-menu-item routerLink="/">Home</button>
-  <button mat-menu-item routerLink="/about">About</button>
-  <button mat-menu-item routerLink="/contact-us">Contact</button>
-</mat-menu>
+  <mat-menu #mobileMenu="matMenu">
+    <button mat-menu-item routerLink="/" routerLinkActive="active-link" [routerLinkActiveOptions]="{ exact: true }">Home</button>
+    <button mat-menu-item routerLink="/about" routerLinkActive="active-link">About</button>
+    <button mat-menu-item routerLink="/contact-us" routerLinkActive="active-link">Contact</button>
+  </mat-menu>
