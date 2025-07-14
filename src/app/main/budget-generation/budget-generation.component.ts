@@ -16,6 +16,7 @@ import { CommonModule } from '@angular/common';
 import { HoursTableComponent } from '../../shared/components/hours-table/hours-table.component';
 import { PdfService } from '../../shared/services/pdf.service';
 import { GarmentStepComponent } from "../../shared/components/garment-step/garment-step.component";
+import { HeaderComponent } from '../../shared/header/header.component';
 
 
 @Component({
@@ -36,7 +37,8 @@ import { GarmentStepComponent } from "../../shared/components/garment-step/garme
     MatStepperModule,
     MatAutocompleteModule,
     HoursTableComponent,
-    GarmentStepComponent
+    GarmentStepComponent,
+    HeaderComponent
 ],
     templateUrl: './budget-generation.component.html',
     styleUrl: './budget-generation.component.scss'
@@ -153,7 +155,17 @@ export class BudgetGenerationComponent implements OnInit {
   }
 
   downloadPDF() {
-    this.pdfService.generateGarmentReport(this.garmentData, this.selectedCurrencySymbol);
+    this.pdfService.generateGarmentBudgetReport(this.budgetDataService.garments(), this.budgetDataService.hours(),
+    {
+      alignmentMeetings: false,
+      alignmentMeetingsCount: 0,
+      taxEnabled: false,
+      taxPercent: 0,
+      additionalExpenseEnabled: false,
+      additionalExpenseType: 'number',
+      additionalExpenseValue: 0,
+    }, this.selectedCurrencySymbol,
+      this.firstFormGroup.get('ratePerHour')?.value ? this.firstFormGroup.get('ratePerHour')?.value : 0);
   }
 
   onRowsUpdated(updatedRows: any[]): void {
