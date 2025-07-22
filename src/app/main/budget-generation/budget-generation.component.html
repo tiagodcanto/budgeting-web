@@ -1,22 +1,22 @@
 <mat-card style="margin: 50px; background-color: #F9F6F4; border-radius: 20px; min-height: 95%;">
   <app-header></app-header>
+  <h1>Budget 1</h1>
   <div class="" style="display: flex; align-items: center; justify-content: center;">
+
     <mat-stepper orientation="vertical" [linear]="false" #stepper class="transparent" style="padding: 20px;">
       <mat-step [stepControl]="firstFormGroup">
         <ng-template matStepLabel>Step 1 - Fill in your Rate Details</ng-template>
         <form [formGroup]="firstFormGroup" class="form-container-horizontal">
         <div class="">
-          <h2>Please fill in your information</h2>
-
-          <mat-card class="min-card">
-            <h3>Set up Your Rate</h3>
-            <div class="flex-even">
-              <mat-form-field appearance="outline">
+          <mat-card class="min-card card-budget">
+            <h3>Set up Your hourly rate</h3>
+            <div class="flex-start">
+              <mat-form-field appearance="outline" >
                 <mat-label>Rate per hour</mat-label>
                 <input matInput type="number" formControlName="ratePerHour"/>
               </mat-form-field>
 
-              <mat-form-field appearance="outline" class="big-field">
+              <mat-form-field appearance="outline" class="big-field ml-10"  style="border-radius: 10px;">
                 <mat-label>Currency</mat-label>
                 <mat-select formControlName="currency">
                   <mat-option *ngFor="let c of filteredCurrencies" [value]="c.code">
@@ -31,15 +31,15 @@
             <p>Rate: ({{ firstFormGroup.value.currency }}) {{ selectedCurrencySymbol }} {{ firstFormGroup.value.ratePerHour }} per hour</p>
           </mat-card>
 
-          <mat-card class="mt-4">
-            <h3>Set up Complexity Level</h3>
+          <mat-card class="mt-4 card-budget">
+            <h3>Set up hours per task</h3>
             <mat-radio-group formControlName="complexityLevel">
-              <mat-radio-button value="default">Set up all hours by default level</mat-radio-button><br>
-              <mat-radio-button value="detailed">Set up all hours in detail</mat-radio-button>
+              <mat-radio-button value="default">Choose the default hours per task.</mat-radio-button><br>
+              <mat-radio-button value="detailed">Choose custom hours per task and set them up.</mat-radio-button>
             </mat-radio-group>
 
-            <mat-form-field appearance="outline" class="mt-4">
-              <mat-label>Level</mat-label>
+            <mat-form-field appearance="outline" class="mt-4" *ngIf="firstFormGroup.get('complexityLevel')!.value === 'default'">
+              <mat-label>User Expertise Level</mat-label>
               <mat-select formControlName="level">
                 <mat-option value="intermediate">Intermediate</mat-option>
                 <mat-option value="professional">Professional</mat-option>
@@ -48,26 +48,31 @@
             </mat-form-field>
           </mat-card>
 
-          <button mat-raised-button style="background-color: #D5C8DB;" matStepperNext>Next</button>
+          <button mat-raised-button class="font-ledger fs-20" style="background-color: #D5C8DB; color: #444D54; border-radius: 25px; width: 180px; min-height: 57px;" matStepperNext>Next</button>
         </div>
 
       </form>
       </mat-step>
-      <mat-step [stepControl]="secondFormGroup" optional>
+      <mat-step [stepControl]="secondFormGroup" [optional]="firstFormGroup.get('complexityLevel')!.value === 'default'">
         <ng-template matStepLabel>Step 2 - Fill in with your experience and timings</ng-template>
-        <p>Please add a new garment type to setup how many hours you take to finish it.</p>
-        <app-hours-table
-          [complexityLevel]="firstFormGroup.get('complexityLevel')?.value"
-          [level]="firstFormGroup.get('level')?.value"
-          (rowsChange)="garmentData = $event"
-          (selectedGarmentTypesChange)="onSelectedGarmentTypesChange($event)">
-        </app-hours-table>
+        <section style="margin-left: 70px !important;">
+          <button mat-raised-button *ngIf="firstFormGroup.get('complexityLevel')!.value === 'default'" class="mr-10 font-ledger fs-20" style="background-color: #EBE5E3; color: #444D54; border-radius: 25px; width: 180px; min-height: 57px;" matStepperPrevious>Back</button>
 
-        <div>
-          <button mat-raised-button matStepperPrevious color="accent" class="mr-10">Back</button>
-          <button mat-raised-button matStepperNext color="accent">Next</button>
-        </div>
+          <button mat-raised-button *ngIf="firstFormGroup.get('complexityLevel')!.value === 'default'" class="font-ledger fs-20" style="background-color: #D5C8DB; color: #444D54; border-radius: 25px; width: 180px; min-height: 57px;" matStepperNext>Next</button>
 
+          <app-hours-table
+            [complexityLevel]="firstFormGroup.get('complexityLevel')?.value"
+            [level]="firstFormGroup.get('level')?.value"
+            (rowsChange)="garmentData = $event"
+            (selectedGarmentTypesChange)="onSelectedGarmentTypesChange($event)">
+          </app-hours-table>
+
+          <div>
+            <button mat-raised-button *ngIf="firstFormGroup.get('complexityLevel')!.value === 'default'" class="mr-10 font-ledger fs-20" style="background-color: #EBE5E3; color: #444D54; border-radius: 25px; width: 180px; min-height: 57px;" matStepperPrevious>Back</button>
+
+            <button mat-raised-button *ngIf="firstFormGroup.get('complexityLevel')!.value === 'default'" class="font-ledger fs-20" style="background-color: #D5C8DB; color: #444D54; border-radius: 25px; width: 180px; min-height: 57px;" matStepperNext>Next</button>
+          </div>
+        </section>
       </mat-step>
       <mat-step [stepControl]="secondFormGroup">
         <ng-template matStepLabel>Step 3 - Name your garments and select which services you provide</ng-template>
@@ -76,41 +81,46 @@
         </app-garment-step>
 
           <div>
-            <button mat-button matStepperPrevious>Back</button>
-            <button mat-button matStepperNext>Next</button>
-          </div>
+          <button mat-raised-button *ngIf="firstFormGroup.get('complexityLevel')!.value === 'default'" class="mr-10 font-ledger fs-20" style="background-color: #EBE5E3; color: #444D54; border-radius: 25px; width: 180px; min-height: 57px;" matStepperPrevious>Back</button>
+
+          <button mat-raised-button *ngIf="firstFormGroup.get('complexityLevel')!.value === 'default'" class="font-ledger fs-20" style="background-color: #D5C8DB; color: #444D54; border-radius: 25px; width: 180px; min-height: 57px;" matStepperNext>Next</button>
+        </div>
       </mat-step>
       <mat-step [stepControl]="thirdFormGroup">
         <ng-template matStepLabel>Step 4 - Additional Services</ng-template>
         <form [formGroup]="thirdFormGroup" class="form-container-horizontal">
-          <mat-card class="min-card">
-            <mat-checkbox >Alignment meetings</mat-checkbox>
-            <mat-form-field appearance="fill">
-              <mat-label>Alignment meetings number (1h)</mat-label>
-              <input matInput type="number" />
-            </mat-form-field>
+          <div>
+            <mat-card class="min-card card-budget">
+              <mat-checkbox >Alignment meetings</mat-checkbox>
+              <mat-form-field appearance="fill">
+                <mat-label>Alignment meetings number (1h)</mat-label>
+                <input matInput type="number" />
+              </mat-form-field>
 
-            <mat-checkbox >Taxes</mat-checkbox>
-            <mat-form-field appearance="fill">
-              <mat-label>Necessary Tax %</mat-label>
-              <input matInput type="number" />
-            </mat-form-field>
+              <mat-checkbox >Taxes</mat-checkbox>
+              <mat-form-field appearance="fill">
+                <mat-label>Necessary Tax %</mat-label>
+                <input matInput type="number" />
+              </mat-form-field>
 
-            <mat-checkbox >Additional expense</mat-checkbox>
-            <mat-radio-group >
-              <mat-radio-button value="number" class="mr-10">$</mat-radio-button>
-              <mat-radio-button value="percentage">%</mat-radio-button>
-            </mat-radio-group>
-            <mat-form-field appearance="fill">
-              <mat-label>Expense Amount</mat-label>
-              <input matInput type="number" />
-            </mat-form-field>
+              <mat-checkbox >Additional expense</mat-checkbox>
+              <mat-radio-group >
+                <mat-radio-button value="number" class="mr-10">$</mat-radio-button>
+                <mat-radio-button value="percentage">%</mat-radio-button>
+              </mat-radio-group>
+              <mat-form-field appearance="fill">
+                <mat-label>Expense Amount</mat-label>
+                <input matInput type="number" />
+              </mat-form-field>
 
-            <div>
-              <button mat-button matStepperPrevious>Back</button>
-              <button mat-button matStepperNext>Next</button>
+
+            </mat-card>
+            <div class="mt-4">
+              <button mat-raised-button *ngIf="firstFormGroup.get('complexityLevel')!.value === 'default'" class="mr-10 font-ledger fs-20" style="background-color: #EBE5E3; color: #444D54; border-radius: 25px; width: 180px; min-height: 57px;" matStepperPrevious>Back</button>
+              <button mat-raised-button *ngIf="firstFormGroup.get('complexityLevel')!.value === 'default'" class="font-ledger fs-20" style="background-color: #D5C8DB; color: #444D54; border-radius: 25px; width: 180px; min-height: 57px;" matStepperNext>Next</button>
             </div>
-          </mat-card>
+          </div>
+
         </form>
       </mat-step>
       <mat-step>
@@ -121,7 +131,8 @@
 
 
         <div>
-          <button mat-button matStepperPrevious>Back</button>
+          <button mat-raised-button *ngIf="firstFormGroup.get('complexityLevel')!.value === 'default'" class="mr-10 font-ledger fs-20" style="background-color: #EBE5E3; color: #444D54; border-radius: 25px; width: 180px; min-height: 57px;" matStepperPrevious>Back</button>
+
           <button mat-button (click)="stepper.reset()">Reset</button>
         </div>
       </mat-step>

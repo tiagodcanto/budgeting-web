@@ -1,16 +1,12 @@
-<div [formGroup]="garmentForm">
+<div [formGroup]="garmentForm" style="margin-left: 70px !important;">
   <mat-accordion formArrayName="garments">
     <mat-expansion-panel *ngFor="let garment of garments.controls; let i = index" [formGroupName]="i" class="garment-entry" expanded="true" #panel>
 
-
-
-
       <mat-expansion-panel-header class="d-flex justify">
-        <mat-panel-title class="title">Garment {{ i + 1 }}: {{ garment.get('name')?.value || 'Unnamed' }}</mat-panel-title>
-        <mat-panel-description>{{ garment.get('garmentType')?.value || 'Garment Type' }}</mat-panel-description>
+        <mat-panel-title class="font-ledger fs-24">Garment {{ i + 1 }}: {{ garment.get('name')?.value || 'Unnamed' }}</mat-panel-title>
+        <mat-panel-description class="font-ledger fs-24" style="height: 57px;">Garment Type: {{ garment.get('garmentType')?.value || 'Garment Type' }}</mat-panel-description>
 
       </mat-expansion-panel-header>
-
 
       <mat-form-field appearance="fill" class="big-field">
         <mat-label>Garment Name</mat-label>
@@ -25,7 +21,7 @@
           </mat-option>
         </mat-select>
       </mat-form-field>
-<mat-divider></mat-divider>
+      <mat-divider></mat-divider>
       <div>
         <h4>Complexity</h4>
 

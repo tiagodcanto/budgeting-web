@@ -3,12 +3,6 @@
   margin: 0 auto;
 }
 
-mat-card {
-  padding: 16px;
-  margin-top: 16apx;
-  background-color: transparent;
-}
-
 mat-form-field {
   display: block;
   margin-bottom: 12px;
@@ -42,13 +36,9 @@ button {
   margin: 20px;
 }
 
-.flex-even {
+.flex-start {
   display: flex;
-  justify-content: space-evenly;
-}
-
-.min-card {
-  min-width: 600px;
+  justify-content: flex-start;
 }
 
 .big-field {
@@ -57,4 +47,15 @@ button {
 
 .mr-10 {
   margin-right: 10px;
+}
+
+.ml-10 {
+  margin-left: 10px;
+}
+
+.card-budget {
+  border-radius: 25px !important;
+  padding: 30px !important;
+  margin-top: 16px;
+  background-color: #F9F6F4 !important;
 }

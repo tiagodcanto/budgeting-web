@@ -1,9 +1,9 @@
-<div class="hour-table-container">
-  <mat-form-field>
-    <mat-label>Filter</mat-label>
+<mat-card class="hour-table-container card-budget min-card" style="background-color: transparent; width: 1242px;">
+  <mat-form-field *ngIf="rows.data.length > 0">
+    <mat-label>Search</mat-label>
     <input matInput (keyup)="applyFilter($event)" placeholder="Ex. ium" #input>
   </mat-form-field>
-  <table mat-table [dataSource]="rows" class="mat-elevation-z2">
+  <table mat-table [dataSource]="rows" class="mat-elevation-z2" style="background-color: transparent; box-shadow: none !important;;">
 
     <!-- Garment Type -->
     <ng-container matColumnDef="garmentType">
@@ -75,12 +75,13 @@
     <tr mat-row *matRowDef="let row; columns: displayedColumns;"></tr>
     <!-- Row shown when there is no matching data. -->
     <tr class="mat-row" *matNoDataRow>
-      <td class="mat-cell" colspan="4">No data matching the filter "{{input.value}}"</td>
+      <td class="mat-cell" colspan="4">No data matching the search</td>
     </tr>
   </table>
 
-  <button mat-raised-button class="mt-4" color="primary" (click)="addGarmentRow()">
-    <mat-icon>add</mat-icon>
-    Add Hours
-  </button>
-</div>
+
+</mat-card>
+<button mat-raised-button class="mt-4 font-ledger fs-20" style="width: 1242px; border-radius: 25px; height: 57px; background-color: #F9F6F4; color: #726578 !important;" color="primary" (click)="addGarmentRow()">
+  <mat-icon>add</mat-icon>
+  Add Hours
+</button>

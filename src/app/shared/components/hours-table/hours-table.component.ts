@@ -9,6 +9,7 @@ import { MatSelectModule } from '@angular/material/select';
 import {MatTableDataSource, MatTableModule} from '@angular/material/table';
 import { MatSnackBar, MatSnackBarModule } from '@angular/material/snack-bar';
 import { BudgetDataService } from '../../services/budget-data.service';
+import { MatCard } from "@angular/material/card";
 
 
 @Component({
@@ -23,8 +24,9 @@ import { BudgetDataService } from '../../services/budget-data.service';
     MatTableModule,
     MatButtonModule,
     MatIconModule,
-    MatSnackBarModule
-  ],
+    MatSnackBarModule,
+    MatCard
+],
   templateUrl: './hours-table.component.html',
   styleUrl: './hours-table.component.scss'
 })

@@ -46,6 +46,10 @@ app-root {
   font-size: 24px !important;
 }
 
+.fs-20 {
+  font-size: 20px !important;
+}
+
 .fs-16 {
   font-size: 16px !important;
 }
@@ -111,4 +115,16 @@ app-root {
     line-color: #9B9B9B,
     header-label-text-font: "Ledger",
   ));
+  @include mat.form-field-overrides((
+    outlined-container-shape: 10px,
+  ));
 }
+
+
+
+
+.min-card {
+  min-width: 1000px;
+}
+
+
