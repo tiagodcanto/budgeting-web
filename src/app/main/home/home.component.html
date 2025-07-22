@@ -67,16 +67,58 @@
 
 <div style="height: 40px;"></div>
 
-<section id="us">
+<section id="meet-us" class="container">
   <div class="" style="margin: 50px;">
-    <h1>US</h1>
-    <mat-card style="background-color: #F9F6F4; border-radius: 25px;">
-      one
+    <h1 class="d-flex center justify-content-center align-items-center font-ledger fs-64 mb-5">
+      Meet the Developers
+    </h1>
+    <div style="height: 20px;"></div>
+    <mat-card style="background-color: #F9F6F4; border-radius: 25px;" class="clickable my-3 job-card row">
+      <img mat-card-avatar src="../../../assets/images/logo.png" class="company-img col-2" [class.mat-elevation-z2]="true"/>
+      <div class="col-10">
+        <mat-card-header class="w-inherit">
+          <mat-card-title class="job-title font-ledger fs-24">Cátia Ferreira</mat-card-title>
+          <mat-card-subtitle class="job-subtitle font-ledger fs-16">
+            Product & Textile Developer
+          </mat-card-subtitle>
+        </mat-card-header>
+
+        <mat-card-content class="w-inherit">
+          <div id="attributes" class="d-grid job-subtitle">
+            <div style="height: 20px;"></div>
+            <span class="d-none d-sm-block font-inter">
+              I’m a product developer with 6 years of hands-on experience in apparel and accessories, from socks to technical gear. I specialize in patterning, materials, sourcing, and development processes across global teams.
+<br>My work bridges creativity and structure. Turning ideas into real, cost-effective products.
+            </span>
+
+          </div>
+        </mat-card-content>
+      </div>
     </mat-card>
+
     <div style="height: 40px;"></div>
-    <mat-card style="background-color: #F9F6F4; border-radius: 25px;">
-      two
+
+    <mat-card style="background-color: #F9F6F4; border-radius: 25px;" class="clickable my-3 job-card row">
+      <img mat-card-avatar src="../../../assets/images/logo.png" class="company-img col-2" [class.mat-elevation-z2]="true"/>
+      <div class="col-10">
+        <mat-card-header class="w-inherit">
+          <mat-card-title class="job-title font-ledger fs-24">Tiago do Canto</mat-card-title>
+          <mat-card-subtitle class="job-subtitle font-ledger fs-16">
+            Software Engineer
+          </mat-card-subtitle>
+        </mat-card-header>
+
+        <mat-card-content class="w-inherit">
+          <div id="attributes" class="d-grid job-subtitle">
+            <div style="height: 20px;"></div>
+            <span class="d-none d-sm-block font-inter">
+              I’m a Software Engineer from Portugal. Moved to Zurich, Switzerland in 2021 to work as a software engineer. I love building new things and creating new projects, I'm also into martial arts, mainly Kendo.
+            </span>
+          </div>
+        </mat-card-content>
+      </div>
     </mat-card>
+
   </div>
 </section>
 
@@ -85,7 +127,39 @@
 <section id="contact">
   <mat-card style="margin: 50px; background-color: #E6DFE0; border-radius: 25px;">
     <div class="container">
-      <h1>Contact</h1>
+      <h1 class="d-flex center justify-content-center align-items-center font-ledger fs-64 mb-5 mt-5">
+      Contact
+      </h1>
+      <form action="">
+        <div class="row">
+          <mat-form-field appearance="outline" class="col-6">
+            <mat-label>Email</mat-label>
+            <input matInput type="email" formControlName="email"/>
+          </mat-form-field>
+          <mat-form-field appearance="outline" class="col-6">
+            <mat-label>Company</mat-label>
+            <input matInput type="email" formControlName="email"/>
+          </mat-form-field>
+        </div>
+        <div class="row">
+        <mat-form-field appearance="outline">
+          <mat-label>Name</mat-label>
+          <input matInput type="email" formControlName="email"/>
+        </mat-form-field>
+        </div>
+        <div class="row">
+        <mat-form-field appearance="outline">
+          <mat-label>Subject</mat-label>
+          <input matInput type="email" formControlName="email"/>
+        </mat-form-field>
+        </div>
+        <div class="row">
+        <mat-form-field appearance="outline">
+        <mat-label>Message</mat-label>
+          <textarea matInput placeholder="Ex. It makes me feel..."></textarea>
+        </mat-form-field>
+        </div>
+      </form>
     </div>
   </mat-card>
 </section>

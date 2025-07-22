@@ -1,6 +1,8 @@
 /* You can add global styles to this file, and also import other style files */
 /* Importing Bootstrap SCSS file. */
 @use 'bootstrap/scss/bootstrap';
+@use '@angular/material' as mat;
+
 
 html, body {
   height: 100%;
@@ -24,4 +26,89 @@ app-root {
   flex-shrink: 0;
   text-align: center;
   font-size: 14px;
+}
+
+.font-ledger {
+  font-family: "Ledger" !important;
+  color: #444D54 !important;
+}
+
+.font-inter {
+  font-family: "Ledger" !important;
+  color: #444D54 !important;
+}
+
+.fs-64 {
+  font-size: 64px !important;
+}
+
+.fs-24 {
+  font-size: 24px !important;
+}
+
+.fs-16 {
+  font-size: 16px !important;
+}
+
+
+
+.mat-step-icon-selected {
+  width: 82px !important;
+  height: 82px !important;
+  border-radius: 25px !important;
+  background-color: #EBE5E3 !important;
+  color: #444D54 !important;
+  box-shadow: 0 2px 4px 0 rgba(0, 0, 0, 0.2);
+  margin-right: 50px !important;
+}
+
+.mat-vertical-stepper-header .mat-step-icon {
+  background-color: #F9F6F4 ;
+  width: 82px !important;
+  height: 82px !important;
+  border-radius: 25px !important;
+  color: #444D54 !important;
+  box-shadow: 0 2px 4px 0 rgba(0, 0, 0, 0.2);
+  margin-right: 50px !important;
+}
+
+.mat-vertical-stepper-header {
+  height: 40px !important;
+}
+
+.mat-step-header {
+  height: 40px !important;
+}
+
+.line-color {
+  color: red !important;
+}
+
+.mat-step-header {
+  left: -28px !important;
+  z-index: 999;
+  font-family: "Ledger" !important;
+  font-size: 26px !important;
+}
+
+.mat-step-text-label {
+  font-size: 26px !important;
+  color: #444D54 !important;
+  height: 40px !important;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+
+.form-container-horizontal {
+  margin-left: 70px !important;
+}
+
+
+:root {
+  @include mat.stepper-overrides((
+    line-color: #9B9B9B,
+    header-label-text-font: "Ledger",
+  ));
 }

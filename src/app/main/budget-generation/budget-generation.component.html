@@ -1,9 +1,9 @@
 <mat-card style="margin: 50px; background-color: #F9F6F4; border-radius: 20px; min-height: 95%;">
   <app-header></app-header>
-  <div class="container">
+  <div class="" style="display: flex; align-items: center; justify-content: center;">
     <mat-stepper orientation="vertical" [linear]="false" #stepper class="transparent" style="padding: 20px;">
       <mat-step [stepControl]="firstFormGroup">
-        <ng-template matStepLabel>Base</ng-template>
+        <ng-template matStepLabel>Step 1 - Fill in your Rate Details</ng-template>
         <form [formGroup]="firstFormGroup" class="form-container-horizontal">
         <div class="">
           <h2>Please fill in your information</h2>
@@ -53,8 +53,8 @@
 
       </form>
       </mat-step>
-      <mat-step [stepControl]="secondFormGroup">
-        <ng-template matStepLabel>Set up all hours</ng-template>
+      <mat-step [stepControl]="secondFormGroup" optional>
+        <ng-template matStepLabel>Step 2 - Fill in with your experience and timings</ng-template>
         <p>Please add a new garment type to setup how many hours you take to finish it.</p>
         <app-hours-table
           [complexityLevel]="firstFormGroup.get('complexityLevel')?.value"
@@ -70,7 +70,7 @@
 
       </mat-step>
       <mat-step [stepControl]="secondFormGroup">
-        <ng-template matStepLabel>Garments</ng-template>
+        <ng-template matStepLabel>Step 3 - Name your garments and select which services you provide</ng-template>
         <app-garment-step
           [availableGarmentTypes]="selectedGarmentTypes">
         </app-garment-step>
@@ -81,7 +81,7 @@
           </div>
       </mat-step>
       <mat-step [stepControl]="thirdFormGroup">
-        <ng-template matStepLabel>Additional Services</ng-template>
+        <ng-template matStepLabel>Step 4 - Additional Services</ng-template>
         <form [formGroup]="thirdFormGroup" class="form-container-horizontal">
           <mat-card class="min-card">
             <mat-checkbox >Alignment meetings</mat-checkbox>
@@ -114,7 +114,7 @@
         </form>
       </mat-step>
       <mat-step>
-        <ng-template matStepLabel>Done</ng-template>
+        <ng-template matStepLabel>Step 5 - Finish</ng-template>
         <p>You are now done.</p>
         <button mat-raised-button color="accent" (click)="downloadPDF()">Download PDF</button>
         <button mat-raised-button color="accent" (click)="getGarmentList()">Garment</button>

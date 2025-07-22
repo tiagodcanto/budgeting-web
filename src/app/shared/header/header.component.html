@@ -3,12 +3,12 @@
       <img src="../../../assets/images/logo.png" alt="organza-hub-logo" (click)="null">
     </span>
     <div class="header-nav desktop-only">
-      <button class="menu-btn" mat-button routerLink="/"
-        routerLinkActive="active-link" [routerLinkActiveOptions]="{ exact: true }">
+      <a class="menu-btn active-link" mat-button href="/"
+        >
         Home
-      </button>
-      <button class="menu-btn" mat-button routerLink="/about" routerLinkActive="active-link">About</button>
-      <button class="menu-btn" mat-button routerLink="/contact-us" routerLinkActive="active-link">Contact</button>
+      </a>
+      <a class="menu-btn" mat-button href="#about">About</a>
+      <a class="menu-btn" mat-button href="#meet-us">Contact</a>
     </div>
 
     <button mat-icon-button class="mobile-only" [matMenuTriggerFor]="mobileMenu">

@@ -77,7 +77,7 @@
 }
 
 
-button {
+a {
   color: #444D54 !important;
 }
 
@@ -90,9 +90,10 @@ button {
   font-family: "Inter";
   font-size: 24px;
   width: 208.67px;
-  border-radius: 25px;
+  height: 57.5px;
+  border-radius: 22px;
 }
 
 .active-link {
-  background-color: #EBE5E3;
+  background-color: #EBE5E3 !important;
 }
